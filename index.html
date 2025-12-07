@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            width: 100vw;
+            height:100vh;
+        }
+        img{
+            width:200px;
+            height:200px
+            
+        }
+        .card{
+            width:300px;
+            height:550px;
+            border:2px solid black;
+            border-radius: 20px;
+            padding: 10px;
+            margin: 10px;
+
+        }
+        #container{
+            display: flex;
+            flex-wrap: wrap;
+        }
+        
+            
+
+    </style>
+</head>
+<body>
+    <h1>display all post</h1>
+    <div id="container"></div>
+
+    <script>
+    async  function getallposts(){
+        let response = await fetch("http://localhost:3000/products")
+        let json_response=await response.json();
+        // console.log(json_response[i].image);
+    
+        //container get cheyadam//
+       
+        let container_ele=document.getElementById("container");
+
+        for(let i=0; i<json_response.length;i++){
+          
+            let card=document.createElement("div");
+            card.classList="card";
+            //FXED: createElement spelling
+            let image_ele = document.createElement("img");
+    
+            //variable name
+            image_ele.src = json_response[i].image;
+        
+           //head element
+           let head_ele= document.createElement("h1")
+           head_ele.textContent= json_response[i].title;
+        
+            //decption
+            let description=document.createElement("p");
+            description.textContent= json_response[i].description;
+            //appendChilld spwlling
+            card.append(image_ele,head_ele,description);
+            container_ele.appendChild(card);
+        }
+    }
+    getallposts();
+    </script>
+</body>
+</html>
+
+
+<!-- // Delete 
+async function postData(){
+          fetch("http://localhost:3000/products/5",{
+            method:"DELETE",
+       
+          })
+     }
+
+
+// post 
+
+ fetch("http://localhost:3000/posts",{
+            method:"POST",
+           
+            body:JSON.stringify({
+                 "id": "3",
+                 "title": "React post",
+                  "views": 1000
+            }),
+
+
+            "Content-Type":"application/json" -->
